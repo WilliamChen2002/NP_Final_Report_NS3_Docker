@@ -1,0 +1,37 @@
+# 使用 Ubuntu 24.04 作為基礎映像檔
+FROM ubuntu:24.04
+
+# 設定環境變數以避免安裝過程卡在時區或鍵盤設定的互動提示
+ENV DEBIAN_FRONTEND=noninteractive
+
+# 更新系統並安裝 NS-3 所需的依賴套件 (CMake, C++ 編譯器, Python 等)
+RUN apt update && apt install -y \
+    g++ \
+    python3 \
+    python3-dev \
+    pkg-config \
+    sqlite3 \
+    cmake \
+    ninja-build \
+    git \
+    nano \
+    vim \
+    && rm -rf /var/lib/apt/lists/*
+
+# 設定工作目錄
+WORKDIR /workspace
+
+# 下載 NS-3 原始碼並切換到 3.47 版本
+RUN git clone https://gitlab.com/nsnam/ns-3-dev.git \
+    && cd ns-3-dev
+
+# 進入 NS-3 目錄
+WORKDIR /workspace/ns-3-dev
+
+# 設定並編譯 NS-3 (啟用範例與測試，以最佳化模式編譯)
+RUN ./ns3 configure --build-profile=optimized --enable-examples --enable-tests
+RUN ./ns3 build
+# RUN ./test.py
+
+# 容器啟動時預設進入 bash 終端機
+CMD ["/bin/bash"]

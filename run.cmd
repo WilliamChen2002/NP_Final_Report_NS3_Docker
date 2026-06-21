@@ -1,0 +1,1 @@
+docker exec -it ns3-docker bash

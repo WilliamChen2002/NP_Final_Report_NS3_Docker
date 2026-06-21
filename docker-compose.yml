@@ -1,0 +1,15 @@
+services:
+  ns3-dev-env:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: williamchen2002/ns3-docker:latest
+    container_name: ns3-docker
+    # 將本機的 my-scratch 掛載到容器內的 scratch
+    volumes:
+      - ./scratch:/workspace/ns-3-dev/scratch
+      - ./output:/workspace/ns-3-dev/output
+    # 保持容器在背景持續運行 (相當於 docker run 的 -it)
+    tty: true
+    stdin_open: true
+    command: tail -f /dev/null
