@@ -342,14 +342,6 @@ int main(int argc, char *argv[]) {
 
   Config::SetDefault("ns3::TcpSocketBase::Sack", BooleanValue(isSack));
 
-  // 將自訂的變數套用到 TCP Vegas 模組
-
-  Config::SetDefault("ns3::TcpVegas::Alpha", UintegerValue(vegasAlpha));
-
-  Config::SetDefault("ns3::TcpVegas::Beta", UintegerValue(vegasBeta));
-
-  Config::SetDefault("ns3::TcpVegas::Gamma", UintegerValue(vegasGamma));
-
   // 安裝FlowMonitor以追蹤流量資訊
 
   FlowMonitorHelper flowmon;
