@@ -65,8 +65,8 @@ static void CwndChange(uint32_t oldCwnd, uint32_t newCwnd) {
 }
 
 // 追蹤queue的drop事件
-static voSid DropAtQueue(Ptr<OutputStreamWrapper> stream,
-                         Ptr<const QueueDiscItem> item) {
+static void DropAtQueue(Ptr<OutputStreamWrapper> stream,
+                        Ptr<const QueueDiscItem> item) {
   *stream->GetStream() << Simulator::Now().GetSeconds() << " 1" << std::endl;
 }
 
